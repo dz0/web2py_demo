@@ -21,7 +21,11 @@ def index():
     sar2 = []
     for nr, sk in enumerate( session.sarasas ):
         # Read, Update
-        form_read_update = FORM( sk ) # TODO
+        form_read_update = FORM( sk )
+            INPUT( _name="skaicius", _value=sk ) , 
+            INPUT( _name="nr", _value=nr, _type="hidden" ) , 
+            _action = URL('redaguoti')  
+        )
         
         # Delete
         form_delete = FORM( 
@@ -43,8 +47,12 @@ def trinti():
     redirect ( URL ('index') )
 
 def redaguoti():
-    # Update #TODO
-
-    print "updating", nr, "to", skaicius 
-
+    # Update
+    if  request.vars.nr  and request.vars.skaicius :
+        nr = int(request.vars.nr) 
+        skaicius = int(request.vars.skaicius) 
+        session.sarasas[nr] = skaicius
+        print "updating", nr, "to", skaicius 
+        
+    redirect ( URL ('index') )
 
