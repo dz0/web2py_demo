@@ -13,10 +13,6 @@ def index():
             # INPUT(_name='nr'),
        )   
 
-    # pridėjimo logika galėtų būti atskiroj funkcijoj.. ;)
-    if request.vars.skaicius:
-        skaicius = int(request.vars.skaicius)
-        session.sarasas.append( skaicius )
     
     sar2 = []
     for nr, sk in enumerate( session.sarasas ):
@@ -56,3 +52,11 @@ def redaguoti():
         
     redirect ( URL ('index') )
 
+
+def prideti():
+    if request.vars.skaicius:
+        skaicius = int(request.vars.skaicius)
+        session.sarasas.append( skaicius )    
+        print "creating element", skaicius 
+        
+    redirect ( URL ('index') )
