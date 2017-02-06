@@ -17,7 +17,7 @@ def index():
     sar2 = []
     for nr, sk in enumerate( session.sarasas ):
         # Read, Update
-        form_read_update = FORM( sk )
+        form_read_update = FORM( 
             INPUT( _name="skaicius", _value=sk ) , 
             INPUT( _name="nr", _value=nr, _type="hidden" ) , 
             _action = URL('redaguoti')  
@@ -29,6 +29,7 @@ def index():
                 INPUT( _type="submit", _value="del") ,
                _action = URL('trinti')  
         )
+        
         sar2 . append ( CAT(form_read_update, form_delete) )
     
     return CAT(form,  UL(sar2), request.vars ) 
