@@ -30,8 +30,15 @@ def index():
                 INPUT( _type="submit", _value="del") ,
                _action = URL('trinti')  
         )
-        
-        sar2 . append ( CAT(form_read_update, form_delete) )
+
+        # Copy
+        form_copy = FORM( 
+            INPUT( _name="skaicius", _value=sk, _type="hidden"  ) , 
+            INPUT( _type="submit", _value="copy") ,
+            _action = URL('prideti')    # panaudosim jau esančią funkciją ( nuo Create )
+        )
+                
+        sar2 . append ( CAT(form_read_update, form_delete, form_copy) )
     
     return CAT(form,  UL(sar2), request.vars ) 
 
