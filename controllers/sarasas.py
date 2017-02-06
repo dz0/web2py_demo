@@ -8,7 +8,7 @@ def index():
         session.sarasas = []
 
     # Create
-    form = FORM( 
+    form_create = FORM( 
             INPUT(_name='skaicius'),
             # INPUT(_name='nr'),
             _action = URL('prideti') 
@@ -38,9 +38,9 @@ def index():
             _action = URL('prideti')    # panaudosim jau esančią funkciją ( nuo Create )
         )
                 
-        sar2 . append ( CAT(form_read_update, form_delete, form_copy) )
+        sar2 . append ( LI(form_read_update, form_delete, form_copy) )
     
-    return CAT(form,  UL(sar2), request.vars ) 
+    return CAT(form_create,  UL(sar2), request.vars, STYLE("form {display:inline}") ) 
 
 def trinti():
     # Delete 
