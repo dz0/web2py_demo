@@ -11,6 +11,7 @@ def index():
     form = FORM( 
             INPUT(_name='skaicius'),
             # INPUT(_name='nr'),
+            _action = URL('prideti') 
        )   
 
     
