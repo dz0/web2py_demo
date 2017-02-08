@@ -42,3 +42,24 @@
           # print "gavau", row['kiek'], 'uz', row['uz_ka']  
                     
 """
+
+# -*- coding: utf-8 -*-
+
+def index():
+    """
+    sąrašas
+    """
+    if not session.sarasas:
+        session.sarasas =  [
+             { 'kiek': 10,  'uz_ka': "premija"  },
+             { 'kiek':-20,  'uz_ka': "pietūs"   },
+         ]
+
+    # Create
+    form_create = FORM( 
+            INPUT(_name='skaicius'),
+            # INPUT(_name='nr'),
+            _action = URL('prideti') 
+       )   
+       
+    return CAT( form_create, session.sarasas )
