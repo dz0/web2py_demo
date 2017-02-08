@@ -51,7 +51,7 @@ def index():
     """
     sąrašas
     """
-    session.clear()
+    # session.clear() -- kai reik išvalyt sesiją
     if not session.sarasas:
         session.sarasas =  [
              { 'kiek': 10,  'uz_ka': "premija"  },
