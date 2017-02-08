@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 
+# from gluon.storage import Storage
+
 """
   Duomenų saugojimo lentele ypatumai..
 
@@ -49,6 +51,7 @@ def index():
     """
     sąrašas
     """
+    session.clear()
     if not session.sarasas:
         session.sarasas =  [
              { 'kiek': 10,  'uz_ka': "premija"  },
@@ -62,4 +65,4 @@ def index():
             _action = URL('prideti') 
        )   
        
-    return CAT( form_create, session.sarasas )
+    return CAT( form_create, BEAUTIFY(session.sarasas ))
