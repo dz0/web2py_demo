@@ -33,5 +33,7 @@ response.generic_patterns = ['*'] if request.is_local else []
 
 db.define_table(   'finansai' , 
                     Field('kiek', 'integer'), 
-                    Field('uz_ka')
+                    Field('uz_ka', requires=IS_IN_SET(['bauda', 'premija', 'kažkas'])  )
                 )
+# uzka = db.finansai.uz_ka
+# uzka.requires=IS_IN_DB(db, uzka)
