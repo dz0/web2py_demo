@@ -22,4 +22,14 @@ def prideti():
     db.finansai.insert( kiek = kiek, 
                         uz_ka = request.vars.uz_ka 
                         )
+   
                           
+# SQLFORM 
+
+def sqlform_create():
+    return SQLFORM( db.finansai )
+
+def sqlform_update():
+    record =  db.finansai ( int( request.args[0]) )
+    return SQLFORM( db.finansai , record )
+
