@@ -28,3 +28,10 @@ response.generic_patterns = ['*'] if request.is_local else []
 # -------------------------------------------------------------------------
 # response.formstyle = myconf.get('forms.formstyle')  # or 'bootstrap3_stacked' or 'bootstrap2' or other
 # response.form_label_separator = myconf.get('forms.separator') or ''
+
+# lenteles valdyt galėsim per /appadmin/index
+
+db.define_table(   'finansai' , 
+                    Field('kiek', 'integer'), 
+                    Field('uz_ka')
+                )
