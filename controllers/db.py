@@ -24,12 +24,25 @@ def prideti():
                         )
    
                           
-# SQLFORM 
+# SQLFORM   http://www.web2pyref.com/reference/sqlform-web2pys-high-level-api-form
 
 def sqlform_create():
-    return SQLFORM( db.finansai )
+    form = SQLFORM( db.finansai )
+    form.process()  # pritaiko  request.vars   lentelei --> form.vars, 
+                    # bei  įterpia įrašą
+
+    return CAT( form,  form.vars )
+    
+    
 
 def sqlform_update():
-    record =  db.finansai ( int( request.args[0]) )
+    # http://localhost:8002/demo/db/sqlform_update/2
+    id = int( request.args[0])
+    record =  db.finansai ( id )
     return SQLFORM( db.finansai , record )
+
+
+
+
+
 
