@@ -42,6 +42,22 @@ def sqlform_update():
     return SQLFORM( db.finansai , record )
 
 
+def search():
+    sform = SQLFORM.factory ( 
+       db.finansai.uz_ka, 
+       Field( 'iki_kiek', 'integer')
+    ) 
+    sform.process()  # suvirškinam formai įvestus   vars'us
+    # request.vars  -->     sform.vars
+    
+    query = db.finansai.id > 0  # pradinis filtras -- visi įrašai
+    
+    if sform.vars.iki_kiek not in [None, '']:
+        query &= db.finansai.kiek <= sform.vars.iki_kiek  # papildoma sąlyga
+        
+    duom = db( query ).select( )
+    
+    return CAT(sform, duom, sform.vars, query)
 
 
 
