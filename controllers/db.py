@@ -47,10 +47,13 @@ def search():
        db.finansai.uz_ka, 
        Field( 'iki_kiek', 'integer')
     ) 
-    sform.process()  # suvirškinam formai įvestus   vars'us
+    sform.process(keepvalues=True)  # suvirškinam formai įvestus   vars'us
     # request.vars  -->     sform.vars
     
     query = db.finansai.id > 0  # pradinis filtras -- visi įrašai
+    
+    if sform.vars.uz_ka:
+        query &= db.finansai.uz_ka == sform.vars.uz_ka
     
     if sform.vars.iki_kiek not in [None, '']:
         query &= db.finansai.kiek <= sform.vars.iki_kiek  # papildoma sąlyga
@@ -58,6 +61,8 @@ def search():
     duom = db( query ).select( )
     
     return CAT(sform, duom, sform.vars, query)
+
+
 
 
 
