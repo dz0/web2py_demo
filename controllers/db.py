@@ -64,6 +64,19 @@ def search():
 
 
 
-
+def sqlform():
+    items = []
+    for x in db().select(db.finansai.ALL):
+        form = SQLFORM( 
+                    db.finansai,
+                    record=x,
+                    showid=False,
+                    deletable=True,
+                    # formstyle="bootstrap3_inline" ,
+                )
+        items.append( form )
+        
+    return UL( items )
+ 
 
 
