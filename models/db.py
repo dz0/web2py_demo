@@ -31,9 +31,19 @@ response.generic_patterns = ['*'] if request.is_local else []
 
 # lenteles valdyt galėsim per /appadmin/index
 
+db.define_table(   'reikalai' , 
+                    Field('artikulas' )
+                )
+                
 db.define_table(   'finansai' , 
                     Field('kiek', 'integer'), 
-                    Field('uz_ka', requires=IS_IN_SET(['bauda', 'premija', 'kažkas'])  )
+                    #Field('uz_ka', requires=IS_IN_SET(['bauda', 'premija', 'kažkas'])  )
+                    Field('reikalas_id', "reference reikalai", 
+                            requires=IS_IN_DB(db, 
+                                db.reikalai.id, 
+                                "[.. %(artikulas)s ..]")
+                            )
                 )
+
 # uzka = db.finansai.uz_ka
 # uzka.requires=IS_IN_DB(db, uzka)
