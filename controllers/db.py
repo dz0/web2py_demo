@@ -44,16 +44,16 @@ def sqlform_update():
 
 def search():
     sform = SQLFORM.factory ( 
-       db.finansai.uz_ka, 
-       Field( 'iki_kiek', 'integer')
+       db.finansai.reikalas_id,  # vietoj uz_ka
+       Field( 'iki_kiek', 'integer') # Todo: padaryt ir    nuo_kiek
     ) 
     sform.process(keepvalues=True)  # suvirškinam formai įvestus   vars'us
     # request.vars  -->     sform.vars
     
     query = db.finansai.id > 0  # pradinis filtras -- visi įrašai
     
-    if sform.vars.uz_ka:
-        query &= db.finansai.uz_ka == sform.vars.uz_ka
+    if sform.vars.reikalas_id:
+        query &= db.finansai.reikalas_id == sform.vars.reikalas_id
     
     if sform.vars.iki_kiek not in [None, '']:
         query &= db.finansai.kiek <= sform.vars.iki_kiek  # papildoma sąlyga
