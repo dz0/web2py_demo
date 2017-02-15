@@ -72,11 +72,16 @@ def sqlform():
                     record=x,
                     showid=False,
                     deletable=True,
-                    # formstyle="bootstrap3_inline" ,
-                )
+                    formstyle="bootstrap3_inline" ,
+                ).process()
         items.append( form )
         
-    return UL( items )
+    style = STYLE("""
+    ul div {float:left; } 
+    ul  {  list-style: none;  }
+    li { padding-bottom: 10px; }
+     """)
+    return CAT ( UL( items ), style )
  
 
 
