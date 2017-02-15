@@ -38,10 +38,9 @@ db.define_table(   'reikalai' ,
 db.define_table(   'finansai' , 
                     Field('kiek', 'integer'), 
                     #Field('uz_ka', requires=IS_IN_SET(['bauda', 'premija', 'kažkas'])  )
-                    Field('reikalas_id', "reference reikalai", 
-                            requires=IS_IN_DB(db, 
-                                db.reikalai.id, 
-                                "[.. %(artikulas)s ..]")
+                    # susiejimas su kt. lentele, pvz # pvz, http://web2py.com/books/default/chapter/29/07/forms-and-validators#Links-to-referencing-records
+                    Field('reikalas_id', "reference reikalai",
+                            requires=IS_IN_DB(db, db.reikalai.id, "[.. %(artikulas)s ..]")
                             )
                 )
 
