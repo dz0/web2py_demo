@@ -66,20 +66,21 @@ def search():
 
 def sqlform():
     items = []
+    # aprašyt ir processint formą
     for x in db().select(db.finansai.ALL):
         form = SQLFORM( 
                     db.finansai,
                     record=x,
                     showid=False,
                     deletable=True,
-                    formstyle="bootstrap3_inline" ,
+                    #formstyle="bootstrap3_inline" ,
                 ).process()
         items.append( form )
-        
+     #  ją pridėti 
     style = STYLE("""
-    ul div {float:left; } 
+    ul tr {float:left; } 
     ul  {  list-style: none;  }
-    li { padding-bottom: 10px; }
+    li { margin-bottom: -15px; }
      """)
     return CAT ( UL( items ), style )
  
