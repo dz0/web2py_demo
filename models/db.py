@@ -32,7 +32,8 @@ response.generic_patterns = ['*'] if request.is_local else []
 # lenteles valdyt galėsim per /appadmin/index
 
 db.define_table(   'reikalai' , 
-                    Field('artikulas' )
+                    Field('artikulas' ), # pavadinimas/kodas
+                    Field('tiekejas')    #  
                 )
                 
 db.define_table(   'finansai' , 
