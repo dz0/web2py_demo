@@ -43,7 +43,9 @@ def sqlform_update():
 
 
 def search():
+    db.reikalai.tiekejas.requires = IS_IN_DB( db, db.reikalai.tiekejas, distinct=True )
     sform = SQLFORM.factory ( 
+       db.reikalai.tiekejas,  
        db.finansai.reikalas_id,  # vietoj uz_ka
        Field( 'iki_kiek', 'integer') # Todo: padaryt ir    nuo_kiek
     ) 
@@ -51,6 +53,12 @@ def search():
     # request.vars  -->     sform.vars
     
     query = db.finansai.id > 0  # pradinis filtras -- visi įrašai
+    
+    if sform.vars.tiekejas:
+        query &= db.reikalai.tiekejas == sform.vars.tiekejas
+        # INNER JOIN
+        query &= db.reikalai.id == db.finansai.reikalas_id
+    
     
     if sform.vars.reikalas_id:
         query &= db.finansai.reikalas_id == sform.vars.reikalas_id
