@@ -53,11 +53,12 @@ def search():
     # request.vars  -->     sform.vars
     
     query = db.finansai.id > 0  # pradinis filtras -- visi įrašai
-    
+    # INNER JOIN
+    query &= db.reikalai.id == db.finansai.reikalas_id
+        
     if sform.vars.tiekejas:
         query &= db.reikalai.tiekejas == sform.vars.tiekejas
-        # INNER JOIN
-        query &= db.reikalai.id == db.finansai.reikalas_id
+        
     
     
     if sform.vars.reikalas_id:
