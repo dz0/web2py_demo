@@ -67,9 +67,11 @@ def search():
     if sform.vars.iki_kiek not in [None, '']:
         query &= db.finansai.kiek <= sform.vars.iki_kiek  # papildoma sąlyga
         
-    duom = db( query ).select( )
+    duom = db( query ).select( 
+                db.reikalai.ALL, db.finansai.ALL,
+            )
     
-    return CAT(sform, duom, sform.vars, query)
+    return CAT(sform, duom, sform.vars, query, PRE(db._lastsql))
 
 
 
