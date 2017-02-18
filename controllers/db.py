@@ -54,7 +54,12 @@ def search():
     
     query = db.finansai.id > 0  # pradinis filtras -- visi įrašai
     # INNER JOIN
-    query &= db.reikalai.id == db.finansai.reikalas_id
+    # query &= db.reikalai.id == db.finansai.reikalas_id # --> perkaliam į select(.., join/left=[..])
+    
+    # nes
+    # WHERE  filtrai labiau skirti atfiltruot įrašams/eilutėms, 
+    # o lentelių sujungimui naudojami:
+    # INNER/LEFT JOIN ON    reikalai.id = finansai.reikalas_id
         
     if sform.vars.tiekejas:
         query &= db.reikalai.tiekejas == sform.vars.tiekejas
@@ -69,6 +74,7 @@ def search():
         
     duom = db( query ).select( 
                 db.reikalai.ALL, db.finansai.ALL,
+                join=[ db.reikalai.on(db.reikalai.id == db.finansai.reikalas_id)] 
             )
     
     return CAT(sform, duom, sform.vars, query, PRE(db._lastsql))
