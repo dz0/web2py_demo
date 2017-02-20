@@ -73,10 +73,12 @@ def search():
         query &= db.finansai.kiek <= sform.vars.iki_kiek  # papildoma sąlyga
         
     duom = db( query ).select( 
-                db.finansai.ALL, db.reikalai.ALL, db.tiekejai.vardas,
+                db.asmenys.vardas, db.finansai.ALL, db.reikalai.ALL, db.tiekejai.vardas,
                 left=[
                    db.reikalai.on(db.reikalai.id == db.finansai.reikalas_id), 
                    db.tiekejai.on(db.tiekejai.id == db.reikalai.tiekejas_id), 
+                   
+                   db.asmenys.on(db.asmenys.id == db.finansai.asmuo_id), 
                 ] 
             )
     
