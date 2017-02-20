@@ -31,9 +31,17 @@ response.generic_patterns = ['*'] if request.is_local else []
 
 # lenteles valdyt galėsim per /appadmin/index
 
+db.define_table(   'tiekejai' , 
+                    Field('vardas' ), 
+                    Field('kodas' ), 
+                    Field('adresas')     
+                )
+
 db.define_table(   'reikalai' , 
-                    Field('artikulas' ), # pavadinimas/kodas
-                    Field('tiekejas')    #  
+                    Field('artikulas' ),  # pavadinimas/kodas
+                    Field('tiekejas_id', 'reference tiekejai',
+                        requires=IS_IN_DB(db, db.tiekejai.id, "[.. %(vardas)s %(kodas)s..]")
+                    )    #  
                 )
                 
 db.define_table(   'finansai' , 

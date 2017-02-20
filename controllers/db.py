@@ -43,9 +43,9 @@ def sqlform_update():
 
 
 def search():
-    db.reikalai.tiekejas.requires = IS_IN_DB( db, db.reikalai.tiekejas, distinct=True )
+    # db.reikalai.tiekejas.requires = IS_IN_DB( db, db.reikalai.tiekejas, distinct=True )
     sform = SQLFORM.factory ( 
-       db.reikalai.tiekejas,  
+       db.reikalai.tiekejas_id,   # vietoj tiekejas
        db.finansai.reikalas_id,  # vietoj uz_ka
        Field( 'iki_kiek', 'integer') # Todo: padaryt ir    nuo_kiek
     ) 
@@ -73,7 +73,7 @@ def search():
         query &= db.finansai.kiek <= sform.vars.iki_kiek  # papildoma sąlyga
         
     duom = db( query ).select( 
-                db.reikalai.ALL, db.finansai.ALL,
+                db.finansai.ALL, db.reikalai.ALL, db.tiekejai.vardas,
                 left=[ db.reikalai.on(db.reikalai.id == db.finansai.reikalas_id)] 
             )
     
