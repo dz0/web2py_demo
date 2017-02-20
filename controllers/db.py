@@ -45,6 +45,7 @@ def sqlform_update():
 def search():
     # db.reikalai.tiekejas.requires = IS_IN_DB( db, db.reikalai.tiekejas, distinct=True )
     sform = SQLFORM.factory ( 
+       db.finansai.asmuo_id,  
        db.reikalai.tiekejas_id,   # vietoj tiekejas
        db.finansai.reikalas_id,  # vietoj uz_ka
        Field( 'iki_kiek', 'integer') # Todo: padaryt ir    nuo_kiek
@@ -61,8 +62,11 @@ def search():
     # o lentelių sujungimui naudojami:
     # INNER/LEFT JOIN ON    reikalai.id = finansai.reikalas_id
         
-    if sform.vars.tiekejas:
-        query &= db.reikalai.tiekejas == sform.vars.tiekejas
+    if sform.vars.asmuo_id:
+        query &= db.finansai.asmuo_id == sform.vars.asmuo_id
+        
+    if sform.vars.tiekejas_id:
+        query &= db.reikalai.tiekejas_id == sform.vars.tiekejas_id
         
     
     
@@ -73,7 +77,7 @@ def search():
         query &= db.finansai.kiek <= sform.vars.iki_kiek  # papildoma sąlyga
         
     duom = db( query ).select( 
-                db.asmenys.vardas, db.finansai.ALL, db.reikalai.ALL, db.tiekejai.vardas,
+                db.asmenys.vardas, db.finansai.kiek, db.reikalai.artikulas, db.tiekejai.vardas,
                 left=[
                    db.reikalai.on(db.reikalai.id == db.finansai.reikalas_id), 
                    db.tiekejai.on(db.tiekejai.id == db.reikalai.tiekejas_id), 
