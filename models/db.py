@@ -31,6 +31,14 @@ response.generic_patterns = ['*'] if request.is_local else []
 
 # lenteles valdyt galėsim per /appadmin/index
 
+
+
+db.define_table(   'asmenys' ,
+                    Field('vardas' ), 
+                    Field('kodas' ), 
+                    Field('email')  
+                ) 
+
 db.define_table(   'tiekejai' , 
                     Field('vardas' ), 
                     Field('kodas' ), 
@@ -50,6 +58,9 @@ db.define_table(   'finansai' ,
                     # susiejimas su kt. lentele, pvz # pvz, http://web2py.com/books/default/chapter/29/07/forms-and-validators#Links-to-referencing-records
                     Field('reikalas_id', "reference reikalai",
                             requires=IS_IN_DB(db, db.reikalai.id, "[.. %(artikulas)s ..]")
+                            ),
+                    Field('asmuo_id', db.asmenys, 
+                            requires=IS_IN_DB(db, db.asmenys.id, "[.. %(vardas)s %(kodas)s..]")
                             )
                 )
 
