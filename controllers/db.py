@@ -74,7 +74,10 @@ def search():
         
     duom = db( query ).select( 
                 db.finansai.ALL, db.reikalai.ALL, db.tiekejai.vardas,
-                left=[ db.reikalai.on(db.reikalai.id == db.finansai.reikalas_id)] 
+                left=[
+                   db.reikalai.on(db.reikalai.id == db.finansai.reikalas_id), 
+                   db.tiekejai.on(db.tiekejai.id == db.reikalai.tiekejas_id), 
+                ] 
             )
     
     return CAT(sform, duom, sform.vars, query, PRE(db._lastsql))
